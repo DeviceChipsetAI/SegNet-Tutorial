@@ -11,8 +11,8 @@ import cv2
 import sys
 
 # Make sure that caffe is on the python path:
-caffe_root = '/SegNet/caffe-segnet/' 			# Change this to the absolute directoy to SegNet Caffe
-sys.path.insert(0, caffe_root + 'python')
+#caffe_root = '/SegNet/caffe-segnet/' 			# Change this to the absolute directoy to SegNet Caffe
+#sys.path.insert(0, caffe_root + 'python')
 
 import caffe
 
@@ -35,8 +35,9 @@ input_shape = net.blobs['data'].data.shape
 label_colours = cv2.imread(args.colours).astype(np.uint8)
 
 with open(args.data) as f:
-    for line in f:
-        input_image_file, ground_truth_file = line.split()
+	for line in f:
+		input_image_file, ground_truth_file = line.split()
+		break
 	input_image_raw = caffe.io.load_image(input_image_file)
 	ground_truth = cv2.imread(ground_truth_file, 0)
 
@@ -73,6 +74,7 @@ with open(args.data) as f:
 	max_average_unc = np.max(average_unc)
 	max_unc = np.max(uncertainty)
 
+	plt.figure()
 	plt.imshow(input_image_raw,vmin=0, vmax=255)
 	plt.figure()
 	plt.imshow(segmentation_rgb,vmin=0, vmax=255)
@@ -84,9 +86,9 @@ with open(args.data) as f:
 	plt.show()
 
 	# uncomment to save results
-	#scipy.misc.toimage(segmentation_rgb, cmin=0.0, cmax=255.0).save(IMAGE_FILE+'_segnet_segmentation.png')
-	#cm = matplotlib.pyplot.get_cmap('bone_r') 
-	#matplotlib.image.imsave(input_image_file+'_segnet_uncertainty.png',average_unc,cmap=cm, vmin=0, vmax=max_average_unc)
+	scipy.misc.toimage(segmentation_rgb, cmin=0.0, cmax=255.0).save('result_segnet_segmentation.png')
+	cm = matplotlib.pyplot.get_cmap('bone_r') 
+	matplotlib.image.imsave(input_image_file+'_segnet_uncertainty.png',average_unc,cmap=cm, vmin=0, vmax=max_average_unc)
 
 	print 'Processed: ', input_image_file
 

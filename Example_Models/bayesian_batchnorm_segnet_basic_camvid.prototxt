@@ -1,14 +1,9 @@
 name: "segnet"
-layer {
-  name: "data"
-  type: "DenseImageData"
-  top: "data"
-  top: "label"
-  dense_image_data_param {
-    source: "/home/chenxie/Sources/SegNet-Tutorial/CamVid/test.txt"	# Change this to the absolute path to your data file
-    batch_size: 8			# Change this to be the number of Monte Carlo Dropout samples you wish to make
-  }
-}
+input: "data"
+input_dim: 8 # Set this to your sample size
+input_dim: 3
+input_dim: 360
+input_dim: 480
 layer {
   name: "norm"
   type: "LRN"
@@ -49,17 +44,8 @@ layer {
   bottom: "conv1"
   top: "conv1"
   name: "conv1_bn"
-  type: "BN"
+  type: "BatchNorm"
   bn_param {
-	bn_mode: INFERENCE
-	scale_filler {
-	  type: "constant"
-	  value: 1
-	}
-	shift_filler {
-	  type: "constant"
-	  value: 0.001
-	}
  }
 }
 layer {
@@ -109,17 +95,8 @@ layer {
   bottom: "conv2"
   top: "conv2"
   name: "conv2_bn"
-  type: "BN"
+  type: "BatchNorm"
   bn_param {
-	bn_mode: INFERENCE
-	scale_filler {
-	  type: "constant"
-	  value: 1
-	}
-	shift_filler {
-	  type: "constant"
-	  value: 0.001
-	}
  }
 }
 layer {
@@ -169,17 +146,8 @@ layer {
   bottom: "conv3"
   top: "conv3"
   name: "conv3_bn"
-  type: "BN"
+  type: "BatchNorm"
   bn_param {
-	bn_mode: INFERENCE
-	scale_filler {
-	  type: "constant"
-	  value: 1
-	}
-	shift_filler {
-	  type: "constant"
-	  value: 0.001
-	}
  }
 }
 layer {
@@ -239,17 +207,8 @@ layer {
   bottom: "conv4"
   top: "conv4"
   name: "conv4_bn"
-  type: "BN"
+  type: "BatchNorm"
   bn_param {
-	bn_mode: INFERENCE
-	scale_filler {
-	  type: "constant"
-	  value: 1
-	}
-	shift_filler {
-	  type: "constant"
-	  value: 0.001
-	}
  }
 }
 layer {
@@ -320,17 +279,8 @@ layer {
   bottom: "conv_decode4"
   top: "conv_decode4"
   name: "conv_decode4_bn"
-  type: "BN"
+  type: "BatchNorm"
   bn_param {
-	bn_mode: INFERENCE
-	scale_filler {
-	  type: "constant"
-	  value: 1
-	}
-	shift_filler {
-	  type: "constant"
-	  value: 0.001
-	}
  }
 }
 layer {
@@ -382,17 +332,8 @@ layer {
   bottom: "conv_decode3"
   top: "conv_decode3"
   name: "conv_decode3_bn"
-  type: "BN"
+  type: "BatchNorm"
   bn_param {
-	bn_mode: INFERENCE
-	scale_filler {
-	  type: "constant"
-	  value: 1
-	}
-	shift_filler {
-	  type: "constant"
-	  value: 0.001
-	}
  }
 }
 layer {
@@ -444,17 +385,8 @@ layer {
   bottom: "conv_decode2"
   top: "conv_decode2"
   name: "conv_decode2_bn"
-  type: "BN"
+  type: "BatchNorm"
   bn_param {
-	bn_mode: INFERENCE
-	scale_filler {
-	  type: "constant"
-	  value: 1
-	}
-	shift_filler {
-	  type: "constant"
-	  value: 0.001
-	}
  }
 }
 layer {
@@ -496,17 +428,8 @@ layer {
   bottom: "conv_decode1"
   top: "conv_decode1"
   name: "conv_decode1_bn"
-  type: "BN"
+  type: "BatchNorm"
   bn_param {
-	bn_mode: INFERENCE
-	scale_filler {
-	  type: "constant"
-	  value: 1
-	}
-	shift_filler {
-	  type: "constant"
-	  value: 0.001
-	}
  }
 }
 layer {
